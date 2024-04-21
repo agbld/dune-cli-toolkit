@@ -48,7 +48,7 @@ Get (or pull) an existing query from Dune. Please follow the steps below:
 
 **NOTE:** The `get_query.sh` script is still under development. It will be more user-friendly in the future.
 
-## Update, Run and See Query Results
+### Update, Run and See Query Results
 You can do these all automatically with the following command:
 ```bash
 bash [PATH_TO_DUNE_CLI_TOOLKIT]/update_and_execute.sh [PATH_TO_YOUR_QUERY_FILE]
