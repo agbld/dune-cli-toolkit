@@ -1,7 +1,10 @@
 #!/bin/bash
 
-# 讀取配置文件以獲取API鍵
-CONFIG_FILE="config.json"
+# 獲取當前腳本目錄
+SCRIPT_DIR=$(dirname "$(readlink -f "$0")")
+
+# 從 config.json 讀取API鍵
+CONFIG_FILE="$SCRIPT_DIR/config.json"
 API_KEY=$(jq -r '.api_key' "$CONFIG_FILE")
 
 # 檢查API鍵是否存在
@@ -20,7 +23,7 @@ if [ -z "$SQL_FILE_PATH" ]; then
 fi
 
 # CSV檔案路徑
-CSV_FILE=".execution_state.csv"
+CSV_FILE="$SCRIPT_DIR/execution_state.csv"
 
 # 檢查CSV檔案是否存在
 if [ ! -f "$CSV_FILE" ]; then

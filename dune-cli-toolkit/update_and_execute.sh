@@ -1,7 +1,10 @@
 #!/bin/bash
 
-# 讀取配置文件以獲取API鍵
-CONFIG_FILE="config.json"
+# 獲取當前腳本目錄
+SCRIPT_DIR=$(dirname "$(readlink -f "$0")")
+
+# 從 config.json 讀取API鍵
+CONFIG_FILE="$SCRIPT_DIR/config.json"
 API_KEY=$(jq -r '.api_key' "$CONFIG_FILE")
 
 # 檢查API鍵是否存在
@@ -20,21 +23,21 @@ if [ -z "$SQL_FILE_PATH" ]; then
 fi
 
 # 更新查詢
-./update_query.sh "$SQL_FILE_PATH"
+$SCRIPT_DIR/update_query.sh "$SQL_FILE_PATH"
 if [ $? -ne 0 ]; then
     echo "Failed to update query."
     exit 1
 fi
 
 # 執行查詢
-./execute_query.sh "$SQL_FILE_PATH"
+$SCRIPT_DIR/execute_query.sh "$SQL_FILE_PATH"
 if [ $? -ne 0 ]; then
     echo "Failed to execute query."
     exit 1
 fi
 
 # 從CSV檔案獲取執行ID
-CSV_FILE=".execution_state.csv"
+CSV_FILE="$SCRIPT_DIR/execution_state.csv"
 EXECUTION_ID=$(grep "$(basename "$SQL_FILE_PATH")" "$CSV_FILE" | cut -d ',' -f2)
 
 # 循環檢查執行狀態
@@ -42,14 +45,14 @@ while true; do
     sleep 3  # 每隔10秒檢查一次狀態
 
     # 檢查執行狀態
-    ./check_status.sh "$SQL_FILE_PATH"
+    $SCRIPT_DIR/check_status.sh "$SQL_FILE_PATH"
     CURRENT_STATE=$(grep "$(basename "$SQL_FILE_PATH")" "$CSV_FILE" | cut -d ',' -f3)
 
     echo "Current state: $CURRENT_STATE"
 
     # 如果查詢完成，則獲取結果
     if [ "$CURRENT_STATE" == "QUERY_STATE_COMPLETED" ]; then
-        ./get_results.sh "$SQL_FILE_PATH"
+        $SCRIPT_DIR/get_results.sh "$SQL_FILE_PATH"
         break
     fi
 done

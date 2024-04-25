@@ -1,7 +1,10 @@
 #!/bin/bash
 
-# 讀取配置文件以獲取API鍵
-CONFIG_FILE="config.json"
+# 獲取當前腳本目錄
+SCRIPT_DIR=$(dirname "$(readlink -f "$0")")
+
+# 從 config.json 讀取API鍵
+CONFIG_FILE="$SCRIPT_DIR/config.json"
 API_KEY=$(jq -r '.api_key' "$CONFIG_FILE")
 
 # 檢查API鍵是否存在
@@ -43,8 +46,8 @@ RESPONSE=$(curl --silent --request POST \
 # 從響應中提取execution_id
 EXECUTION_ID=$(echo "$RESPONSE" | jq -r '.execution_id')
 
-# CSV檔案路徑，更新為.execution_state.csv
-CSV_FILE=".execution_state.csv"
+# CSV檔案路徑
+CSV_FILE="$SCRIPT_DIR/execution_state.csv"
 
 # 檢查CSV檔是否存在，如果不存在，創建檔案並添加標題
 if [ ! -f "$CSV_FILE" ]; then
