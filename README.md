@@ -45,6 +45,7 @@ Get (or pull) an existing query from Dune. Please follow the steps below:
     bash [PATH_TO_DUNE_CLI_TOOLKIT]/get_query.sh [PATH_TO_YOUR_QUERY_FILE]
     ```
     After running the command, you will see the query content in the `[YOUR_QUERY_TITLE].sql` file.
+    `[PATH_TO_DUNE_CLI_TOOLKIT]`: The path to the `dune-cli-toolkit/src` directory. Note that you **SHOULD** include the `src` directory in the path.
 
 **NOTE:** The `get_query.sh` script is still under development. It will be more user-friendly in the future.
 
