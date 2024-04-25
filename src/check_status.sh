@@ -23,7 +23,7 @@ if [ -z "$SQL_FILE_PATH" ]; then
 fi
 
 # CSV檔案路徑
-CSV_FILE="$SCRIPT_DIR/execution_state.csv"
+CSV_FILE="$SCRIPT_DIR/.execution_state.csv"
 
 # 檢查CSV檔案是否存在
 if [ ! -f "$CSV_FILE" ]; then

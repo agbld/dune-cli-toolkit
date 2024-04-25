@@ -37,7 +37,7 @@ if [ $? -ne 0 ]; then
 fi
 
 # 從CSV檔案獲取執行ID
-CSV_FILE="$SCRIPT_DIR/execution_state.csv"
+CSV_FILE="$SCRIPT_DIR/.execution_state.csv"
 EXECUTION_ID=$(grep "$(basename "$SQL_FILE_PATH")" "$CSV_FILE" | cut -d ',' -f2)
 
 # 循環檢查執行狀態

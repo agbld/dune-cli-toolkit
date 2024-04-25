@@ -47,7 +47,7 @@ RESPONSE=$(curl --silent --request POST \
 EXECUTION_ID=$(echo "$RESPONSE" | jq -r '.execution_id')
 
 # CSV檔案路徑
-CSV_FILE="$SCRIPT_DIR/execution_state.csv"
+CSV_FILE="$SCRIPT_DIR/.execution_state.csv"
 
 # 檢查CSV檔是否存在，如果不存在，創建檔案並添加標題
 if [ ! -f "$CSV_FILE" ]; then
